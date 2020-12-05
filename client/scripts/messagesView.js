@@ -5,12 +5,10 @@ var MessagesView = {
   initialize: function() {
   },
 
-  render: function(data) {
+  renderMessage: function(message) {
 
-    for (const value of data) {
-      const html = MessageView.render(value);
-      MessagesView.$chats.append(html);
-    }
+    const html = MessageView.render(message);
+    MessagesView.$chats.append(html);
 
   }
 
