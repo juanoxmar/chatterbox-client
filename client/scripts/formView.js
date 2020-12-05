@@ -12,9 +12,10 @@ var FormView = {
 
     Messages.username = App.username;
     Messages.text = $('#message').val();
-    Messages.roomname = 'lobby';
+    Messages.roomname = RoomsView.$select[0].value;
 
     Parse.create(Messages);
+
   },
 
   setStatus: function(active) {

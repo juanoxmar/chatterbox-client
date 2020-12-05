@@ -22,18 +22,11 @@ var App = {
       // examine the response from the server request:
       console.log(data);
 
-      //const rooms = [];
+      const results1 = data.results.filter((elem) => 'username' in elem && 'roomname' in elem && 'text' in elem);
 
-      /*
-      messages have rooms attached to them
-       we are going to iterate through results
-       anytime we reach a room that is not located in our array, push it
-
-      */
-      const results = data.results.filter(({username, text, roomname}) => username !== undefined || text !== undefined || roomname !== undefined);
+      const results = results1.filter(({username, roomname, text}) => username !== undefined || text !== undefined || roomname !== undefined || roomname !== null);
 
       for (let j = 0; j < results.length; j++) {
-        console.log(results[j].roomname in Rooms);
         if (!(results[j].roomname in Rooms)) {
           Rooms[results[j].roomname] = 1;
         }
@@ -41,8 +34,9 @@ var App = {
 
       for (let i = 0; i < results.length; i++) {
         MessagesView.renderMessage(results[i]);
-
       }
+
+      RoomsView.renderRoom();
 
       callback();
     });

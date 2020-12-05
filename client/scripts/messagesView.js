@@ -8,7 +8,7 @@ var MessagesView = {
   renderMessage: function(message) {
 
     const html = MessageView.render(message);
-    MessagesView.$chats.append(html);
+    this.$chats.append(html);
 
   }
 
