@@ -13,11 +13,11 @@ var App = {
 
     // Fetch initial batch of messages
     App.startSpinner();
-    App.fetch(App.stopSpinner);
+    App.fetch(App.stopSpinner, 'lobby');
 
   },
 
-  fetch: function(callback = ()=>{}) {
+  fetch: function(callback = ()=>{}, room) {
     Parse.readAll((data) => {
       // examine the response from the server request:
       console.log(data);
@@ -26,17 +26,13 @@ var App = {
 
       const results = results1.filter(({username, roomname, text}) => username !== undefined || text !== undefined || roomname !== undefined || roomname !== null);
 
-      for (let j = 0; j < results.length; j++) {
-        if (!(results[j].roomname in Rooms)) {
-          Rooms[results[j].roomname] = 1;
-        }
-      }
+      const final = results.filter(({roomname}) => roomname === room);
 
-      for (let i = 0; i < results.length; i++) {
-        MessagesView.renderMessage(results[i]);
-      }
+      console.log(final);
 
-      RoomsView.renderRoom();
+      for (let i = 0; i < final.length; i++) {
+        MessagesView.renderMessage(final[i]);
+      }
 
       callback();
     });

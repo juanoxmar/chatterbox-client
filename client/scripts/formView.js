@@ -16,6 +16,13 @@ var FormView = {
 
     Parse.create(Messages);
 
+    $('#chats').empty();
+
+
+
+    App.startSpinner();
+    App.fetch(App.stopSpinner);
+
   },
 
   setStatus: function(active) {
